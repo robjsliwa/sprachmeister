@@ -24,7 +24,7 @@ export async function GET(request: NextRequest, { params }: { params: { lessonId
         word: '',
       },
       {
-        status: 201,
+        status: 200,
       },
     );
   }
@@ -55,7 +55,7 @@ export async function POST(request: NextRequest, { params }: { params: { lessonI
   }
   const requestBody = await request.json();
   const lessonId = params.lessonId;
-  const newWords = requestBody.words;
+  const newWords = requestBody.words || [];
 
   const existingWords = await kv.get(lessonId) || '';
   const updatedWords = existingWords + (existingWords ? ', ' : '') + newWords.join(', ');
